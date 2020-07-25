@@ -22,7 +22,11 @@ router.get('/:id', (req, res) => {
     .where({ id })
     .first()
     .then((cars) => {
-      res.json(cars);
+      if (cars) {
+        res.json(cars);
+      } else {
+        res.status(404).json({ message: 'Invalid id' });
+      }
     })
     .catch((err) => {
       res.status(500).json({ message: 'Failed to retrieve car' });
